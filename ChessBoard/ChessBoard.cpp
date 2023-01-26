@@ -1,8 +1,12 @@
 #include <iostream>
+#include "Board.h"
 
 using namespace std;
 
 int main()
 {
-    cout << "Hello World!\n";
+    Board* board;
+    board = new Board(7, 7);
+    board->initialization();
+    delete board;
 }
