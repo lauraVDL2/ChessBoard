@@ -11,6 +11,7 @@ Board* board;
 Player* player1, * player2;
 
 void setPlayerPieces(Player *, char);
+void turn(Player*);
 
 int main() {
     string name;
@@ -41,6 +42,12 @@ int main() {
     board->initialization();
     setPlayerPieces(player1, (color == 'b') ? BLACK : WHITE);
     setPlayerPieces(player2, (color == 'b') ? WHITE : BLACK);
+    do {
+        cout << "Player 1, this is your turn" << endl;
+        turn(player1);
+        cout << "Player 2, this is your turn" << endl;
+        turn(player2);
+    } while (player1->getPieces().size() != 0 && player2->getPieces().size() != 0);
 }
 
 void setPlayerPieces(Player * player, char color) {
@@ -49,5 +56,63 @@ void setPlayerPieces(Player * player, char color) {
     pieces = board->getPieces();
     for (i = 0; i < pieces.size(); i++) {
         if (pieces[i]->getColor() == color) player->pushPiece(pieces[i]);
+    }
+}
+
+void turn(Player* player) {
+    vector<Piece*> pieces;
+    short x, y, i, xMove, yMove, initialX, initialY;
+    bool c;
+    c = false;
+    pieces = player->getPieces();
+    do {
+        cout << "Enter the coordinate (x) of your piece : ";
+        cin >> x;
+        cout << "Enter the coordinate (y) of your piece : ";
+        cin >> y;
+        for (i = 0; i < pieces.size(); i++) {
+            if (pieces[i]->getPositionX() == x && pieces[i]->getPositionY() == y && pieces[i]->canMove(board->getPieces())) {
+                initialX = x;
+                initialY = y;
+                c = true;
+                break;
+            }
+        }
+    } while (!c);
+    if (c) {
+        cout << "Enter the coordinate (x) where you want to move : ";
+        cin >> xMove;
+        cout << "Enter the coordinate (y) where you want to move : ";
+        cin >> yMove;
+        if (pieces[i]->moveValid(xMove, yMove)) {
+            board->setBoardValue(initialX, initialY, '.');
+            if (typeid(*pieces[i]) == typeid(Horseman)) {
+                if (player->getColor() == WHITE) board->setBoardValue(xMove, yMove, 'c');
+                else board->setBoardValue(xMove, yMove, 'C');
+            }
+            else if (typeid(*pieces[i]) == typeid(Fool)) {
+                if (player->getColor() == WHITE) board->setBoardValue(xMove, yMove, 'f');
+                else board->setBoardValue(xMove, yMove, 'F');
+            }
+            else if (typeid(*pieces[i]) == typeid(King)) {
+                if (player->getColor() == WHITE) board->setBoardValue(xMove, yMove, 'r');
+                else board->setBoardValue(xMove, yMove, 'R');
+            }
+            else if (typeid(*pieces[i]) == typeid(Lady)) {
+                if (player->getColor() == WHITE) board->setBoardValue(xMove, yMove, 'e');
+                else board->setBoardValue(xMove, yMove, 'E');
+            }
+            else if (typeid(*pieces[i]) == typeid(Pawn)) {
+                if (player->getColor() == WHITE) board->setBoardValue(xMove, yMove, 'p');
+                else board->setBoardValue(xMove, yMove, 'P');
+            }
+            else if (typeid(*pieces[i]) == typeid(Tower)) {
+                if (player->getColor() == WHITE) board->setBoardValue(xMove, yMove, 't');
+                else board->setBoardValue(xMove, yMove, 'T');
+            }
+            pieces[i]->setPositionX(xMove);
+            pieces[i]->setPositionY(yMove);
+            board->display();
+        }
     }
 }

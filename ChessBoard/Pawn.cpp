@@ -11,3 +11,7 @@ Pawn::Pawn(short positionX, short positionY, char color) : Piece(positionX, posi
 bool Pawn::moveValid(short x, short y) {
 	return true;
 }
+
+bool Pawn::canMove(vector<Piece*> piece) {
+	return true;
+}

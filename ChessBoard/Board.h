@@ -26,5 +26,7 @@ public:
 	void initialization();
 
 	vector<Piece*> getPieces();
+
+	void setBoardValue(short, short, char);
 };
 

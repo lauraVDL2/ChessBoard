@@ -79,3 +79,7 @@ void Board::initialization() {
 vector<Piece*> Board::getPieces() {
 	return this->pieces;
 }
+
+void Board::setBoardValue(short x, short y, char value) {
+	this->board[x][y] = value;
+}
