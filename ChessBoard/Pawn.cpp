@@ -8,7 +8,7 @@ Pawn::Pawn(short positionX, short positionY, char color) : Piece(positionX, posi
 	;
 }
 
-bool Pawn::moveValid(short x, short y) {
+bool Pawn::moveValid(vector<Piece*> pieces, short x, short y) {
 	return true;
 }
 

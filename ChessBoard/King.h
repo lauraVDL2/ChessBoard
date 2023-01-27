@@ -6,7 +6,7 @@ public:
 	King();
 	King(short, short, char);
 
-	bool moveValid(short, short);
+	bool moveValid(vector<Piece*>, short, short);
 	bool canMove(vector<Piece*>);
 };
 

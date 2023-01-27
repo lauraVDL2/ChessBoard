@@ -1,8 +1,7 @@
 #pragma once
+#include <iostream>
 #include <vector>
-
-#define BLACK 0
-#define WHITE 1
+#include "AllDefines.h"
 
 using namespace std;
 
@@ -15,7 +14,8 @@ public:
 	Piece();
 	Piece(short, short, char);
 
-	virtual bool moveValid(short, short) = 0;
+	virtual bool moveValid(vector<Piece *>, short, short) = 0;
+	//See if not surrounded
 	virtual bool canMove(vector<Piece *>) = 0;
 
 	char getColor();
