@@ -9,18 +9,18 @@
 #include "Pawn.h"
 #include "Tower.h"
 
+#define BOARD_SIZE 8
+
 using namespace std;
 
 class Board
 {
 private:
 	short x, y;
-	vector<Pawn*> pawns;
-	char ** board;
+	vector<Piece*> pieces;
+	char board[BOARD_SIZE][BOARD_SIZE];
 public:
 	Board();
-	Board(short, short);
-	~Board();
 	
 	void display();
 	void initialization();
