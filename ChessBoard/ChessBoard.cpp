@@ -84,7 +84,7 @@ void turn(Player* player) {
         cin >> xMove;
         cout << "Enter the coordinate (y) where you want to move : ";
         cin >> yMove;
-    } while (!pieces[i]->moveValid(xMove, yMove));
+    } while (!pieces[i]->moveValid(board->getPieces(), xMove, yMove));
     board->setBoardValue(initialX, initialY, '.'); //The old place of the piece
     //Check types
     if (typeid(*pieces[i]) == typeid(Horseman)) {

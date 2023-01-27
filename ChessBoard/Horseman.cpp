@@ -8,7 +8,7 @@ Horseman::Horseman(short x, short y, char color) : Piece(x, y, color) {
 	;
 }
 
-bool Horseman::moveValid(short x, short y) {
+bool Horseman::moveValid(vector<Piece*> pieces, short x, short y) {
 	return true;
 }
 

@@ -8,7 +8,7 @@ Fool::Fool(short x, short y, char color) : Piece(x, y, color) {
 	;
 }
 
-bool Fool::moveValid(short x, short y) {
+bool Fool::moveValid(vector<Piece*> pieces, short x, short y) {
 	return true;
 }
 

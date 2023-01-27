@@ -8,8 +8,7 @@
 #include "Lady.h"
 #include "Pawn.h"
 #include "Tower.h"
-
-#define BOARD_SIZE 8
+#include "AllDefines.h"
 
 using namespace std;
 
