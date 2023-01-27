@@ -1,14 +1,18 @@
 #include <iostream>
 #include <string>
+#include <vector>
 #include "Board.h"
 #include "Player.h"
 #include "Piece.h"
 
 using namespace std;
 
+Board* board;
+Player* player;
+
+void setPlayerPieces(char);
+
 int main() {
-    Board* board;
-    Player* player;
     string name;
     char color;
     cout << "Enter you name : ";
@@ -27,4 +31,14 @@ int main() {
     }
     board = new Board();
     board->initialization();
+    setPlayerPieces((color == 'b')?BLACK:WHITE);
+}
+
+void setPlayerPieces(char color) {
+    vector<Piece*> pieces;
+    short i;
+    pieces = board->getPieces();
+    for (i = 0; i < pieces.size(); i++) {
+        if (pieces[i]->getColor() == color) player->pushPiece(pieces[i]);
+    }
 }

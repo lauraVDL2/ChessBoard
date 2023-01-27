@@ -76,3 +76,6 @@ void Board::initialization() {
 	this->display();
 }
 
+vector<Piece*> Board::getPieces() {
+	return this->pieces;
+}
