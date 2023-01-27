@@ -24,5 +24,7 @@ public:
 	
 	void display();
 	void initialization();
+
+	vector<Piece*> getPieces();
 };
 
