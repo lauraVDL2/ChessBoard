@@ -6,7 +6,7 @@ using namespace std;
 int main()
 {
     Board* board;
-    board = new Board(7, 7);
+    board = new Board(8, 8);
     board->initialization();
     delete board;
 }

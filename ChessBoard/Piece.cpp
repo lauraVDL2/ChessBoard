@@ -5,6 +5,12 @@ Piece::Piece() {
 	this->positionX = this->positionY = 0;
 }
 
+Piece::Piece(short positionX, short positionY, char color) {
+	this->positionX = positionX;
+	this->positionY = positionY;
+	this->color = color;
+}
+
 char Piece::getColor() {
 	return this->color;
 }

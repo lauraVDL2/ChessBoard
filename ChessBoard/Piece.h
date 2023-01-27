@@ -11,7 +11,7 @@ protected:
 public:
 	Piece();
 	Piece(short, short, char);
-	virtual bool moveValid(int, int) = 0;
+	virtual bool moveValid(short, short) = 0;
 
 	char getColor();
 	short getPositionX();
