@@ -11,7 +11,7 @@ Fool::Fool(short x, short y, char color) : Piece(x, y, color) {
 bool Fool::moveValid(vector<Piece*> pieces, short x, short y) {
 	short i, j;
 	for (i = 0; i < pieces.size(); i++) {
-		if (pieces[i]->getPositionX() == x && pieces[i]->getPositionY() == y) return false;
+		if (pieces[i]->getPositionX() == x && pieces[i]->getPositionY() == y && pieces[i]->getColor() == this->color) return false;
 	}
 	//Bottom left
 	for (i = this->positionX - 1, j = this->positionY - 1; i >= 0 && j >= 0; i--, j--) if (x == i && y == j) return true;

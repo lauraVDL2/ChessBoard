@@ -12,7 +12,7 @@ bool Pawn::moveValid(vector<Piece*> pieces, short x, short y) {
 	short i, j;
 	//Check if there not a piece where we want to move
 	for (i = 0; i < pieces.size(); i++) {
-		if (pieces[i]->getPositionX() == x && pieces[i]->getPositionY() == y) return false;
+		if (pieces[i]->getPositionX() == x && pieces[i]->getPositionY() == y && pieces[i]->getColor() == this->color) return false;
 	}
 	//Black player
 	if (this->color == BLACK) {
