@@ -48,6 +48,7 @@ int main() {
         cout << "Player 2, this is your turn" << endl;
         turn(player2);
     } while (player1->getPieces().size() != 0 && player2->getPieces().size() != 0);
+    return 0;
 }
 
 void setPlayerPieces(Player * player, char color) {
