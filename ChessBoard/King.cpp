@@ -13,11 +13,11 @@ bool King::moveValid(vector<Piece*> pieces, short x, short y) {
 	for (i = 0; i < pieces.size(); i++) {
 		if (pieces[i]->getPositionX() == x && pieces[i]->getPositionY() == y && pieces[i]->getColor() == this->color) return false;
 	}
+	if (this->failure(pieces, this->positionX, this->positionY)) return false;
 	for (i = x - 1; i <= x + 1; i++) {
 		for (j = y - 1; j <= y + 1; j++) {
 			if (this->positionX == x && this->positionY == y) return false;
-			if (this->failure(pieces, this->positionX, this->positionY)) return false;
-			if (this->positionX == i && this->positionY == y) return true;
+			if (this->positionX == i && this->positionY == j) return true;
 		}
 	}
 	return false;
