@@ -79,7 +79,6 @@ void Board::initialization() {
 char Board::checkmate() {
 	King* wKing = nullptr, * bKing = nullptr;
 	short i, j, k, x, y;
-	char result = 0;
 	//Get the kings
 	for (i = 0; i < this->pieces.size(); i++) {
 		if (typeid(*this->pieces[i]) == typeid(King)) {
@@ -95,6 +94,7 @@ char Board::checkmate() {
 			if (this->checkKing(wKing, i)) return W_WON;
 		}
 	}
+	return 0;
 }
 
 bool Board::checkKing(King* king, short k) {
@@ -102,13 +102,18 @@ bool Board::checkKing(King* king, short k) {
 	bool fail = true;
 	x = king->getPositionX();
 	y = king->getPositionY();
-	xMin = min(x + 1, BOARD_SIZE);
-	xMax = max(x - 1, 0);
-	yMin = min(y + 1, BOARD_SIZE);
-	yMax = max(y - 1, 0);
+	xMax = min(x + 1, BOARD_SIZE);
+	xMin = max(x - 1, 0);
+	yMax = min(y + 1, BOARD_SIZE);
+	yMin = max(y - 1, 0);
+	//cout << "xMin = " << xMin << " xMax = " << xMax << " yMin = " << yMin << " yMax = " << yMax << endl;
 	for (i = xMin; i < xMax; i++) {
 		for (j = yMin; j < yMax; j++) {
-			if (!this->pieces[k]->moveValid(this->pieces, i, j)) fail = false;
+			if (!this->pieces[k]->moveValid(this->pieces, i, j)) {
+				//cout << "ok 2";
+				fail = false;
+			}
+			//else cout << "OK 1" << endl;
 		}
 	}
 	return fail;
