@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include "Piece.h"
 #include "Fool.h"
 #include "Horseman.h"
@@ -23,6 +24,8 @@ public:
 	
 	void display();
 	void initialization();
+	char checkmate();
+	bool checkKing(King*, short);
 
 	vector<Piece*> getPieces();
 

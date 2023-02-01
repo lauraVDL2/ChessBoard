@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "AllDefines.h"
 #include "Board.h"
 #include "Player.h"
 #include "Piece.h"
@@ -17,7 +18,7 @@ void turn(Player*);
 
 int main() {
     string name;
-    char color;
+    char color, checkmate;
     cout << "Enter you name : ";
     cin >> name;
     do {
@@ -46,13 +47,22 @@ int main() {
     setPlayerPieces(player2, (color == 'b') ? WHITE : BLACK);
     party = new Party(board, nullptr);
     do {
+        checkmate = board->checkmate();
         cout << "Player 1, this is your turn" << endl;
         party->setPlayer(player1);
         turn(player1);
         cout << "Player 2, this is your turn" << endl;
         party->setPlayer(player2);
         turn(player2);
-    } while (player1->getPieces().size() != 0 && player2->getPieces().size() != 0);
+    } while (checkmate == 0);
+    if (checkmate == W_WON) {
+        if (player1->getColor() == WHITE) cout << player1->getName() << " won";
+        else cout << player2->getName() << " won";
+    }
+    else if (checkmate == B_WON) {
+        if (player1->getColor() == BLACK) cout << player1->getName() << " won";
+        else cout << player2->getName() << " won";
+    }
     return 0;
 }
 
@@ -108,6 +118,7 @@ void turn(Player* player) {
         yp = ((King*)pieces[i])->getYTower();
         if (player->getColor() == WHITE) {
             board->setBoardValue(xMove, yMove, 'r');
+            //Castling case
             if (yp > 0) {
                 board->setBoardValue(xMove, yp, 't');
                 board->setBoardValue(7, 7, '.');
@@ -115,6 +126,7 @@ void turn(Player* player) {
         }
         else {
             board->setBoardValue(xMove, yMove, 'R');
+            //Catling case
             if (yp > 0) {
                 board->setBoardValue(xMove, yp, 'T');
                 board->setBoardValue(0, 7, '.');
@@ -133,6 +145,7 @@ void turn(Player* player) {
         yp = ((Tower*)pieces[i])->getYKing();
         if (player->getColor() == WHITE) {
             board->setBoardValue(xMove, yMove, 't');
+            //Castling case
             if (yp > 0) {
                 board->setBoardValue(xMove, yp, 'r');
                 board->setBoardValue(7, 3, '.');
@@ -140,6 +153,7 @@ void turn(Player* player) {
         }
         else {
             board->setBoardValue(xMove, yMove, 'T');
+            //Castling case
             if (yp > 0) {
                 board->setBoardValue(xMove, yp, 'R');
                 board->setBoardValue(0, 3, '.');

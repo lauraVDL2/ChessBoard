@@ -76,6 +76,44 @@ void Board::initialization() {
 	this->display();
 }
 
+char Board::checkmate() {
+	King* wKing = nullptr, * bKing = nullptr;
+	short i, j, k, x, y;
+	char result = 0;
+	//Get the kings
+	for (i = 0; i < this->pieces.size(); i++) {
+		if (typeid(*this->pieces[i]) == typeid(King)) {
+			if (((King*)this->pieces[i])->getColor() == WHITE) wKing = (King*)this->pieces[i];
+			else bKing = (King*)this->pieces[i];
+		}
+	}
+	for (i = 0; i < this->pieces.size(); i++) {
+		if (this->pieces[i]->getColor() == WHITE) {
+			if(this->checkKing(bKing, i)) return B_WON;
+		}
+		else if (this->pieces[i]->getColor() == BLACK) {
+			if (this->checkKing(wKing, i)) return W_WON;
+		}
+	}
+}
+
+bool Board::checkKing(King* king, short k) {
+	short i, j, x, y, xMax, xMin, yMax, yMin;
+	bool fail = true;
+	x = king->getPositionX();
+	y = king->getPositionY();
+	xMin = min(x + 1, BOARD_SIZE);
+	xMax = max(x - 1, 0);
+	yMin = min(y + 1, BOARD_SIZE);
+	yMax = max(y - 1, 0);
+	for (i = xMin; i < xMax; i++) {
+		for (j = yMin; j < yMax; j++) {
+			if (!this->pieces[k]->moveValid(this->pieces, i, j)) fail = false;
+		}
+	}
+	return fail;
+}
+
 vector<Piece*> Board::getPieces() {
 	return this->pieces;
 }
