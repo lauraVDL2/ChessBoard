@@ -25,5 +25,6 @@ public:
 	void setPieces(vector<Piece*>);
 
 	void pushPiece(Piece *);
+	void clearPieces();
 };
 

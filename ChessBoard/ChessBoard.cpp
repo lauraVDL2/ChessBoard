@@ -55,6 +55,7 @@ void setPlayerPieces(Player * player, char color) {
     vector<Piece*> pieces;
     short i;
     pieces = board->getPieces();
+    player->clearPieces();
     for (i = 0; i < pieces.size(); i++) {
         if (pieces[i]->getColor() == color) player->pushPiece(pieces[i]);
     }
@@ -85,6 +86,7 @@ void turn(Player* player) {
         cin >> xMove;
         cout << "Enter the coordinate (y) where you want to move : ";
         cin >> yMove;
+        setPlayerPieces(player, player->getColor());
     } while (!pieces[i]->moveValid(board->getPieces(), xMove, yMove));
     board->setBoardValue(initialX, initialY, '.'); //The old place of the piece
     //Check types

@@ -17,7 +17,10 @@ bool King::moveValid(vector<Piece*> pieces, short x, short y) {
 	for (i = x - 1; i <= x + 1; i++) {
 		for (j = y - 1; j <= y + 1; j++) {
 			if (this->positionX == x && this->positionY == y) return false;
-			if (this->positionX == i && this->positionY == j) return true;
+			if (this->positionX == i && this->positionY == j) {
+				this->eatPiece(pieces, i, j);
+				return true;
+			}
 		}
 	}
 	return false;
