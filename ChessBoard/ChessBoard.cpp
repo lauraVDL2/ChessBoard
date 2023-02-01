@@ -18,10 +18,10 @@ int main() {
     char color;
     cout << "Enter you name : ";
     cin >> name;
-    ask:
-    cout << "Black or white player ? (b/w) : ";
-    cin >> color;
-    if (color != 'b' && color != 'w') goto ask;
+    do {
+        cout << "Black or white player ? (b/w) : ";
+        cin >> color;
+    } while (color != 'b' && color != 'w');
     if (color == 'b') {
         cout << "Welcome " << name << " you are the black player" << endl;
         player1 = new Player(name, BLACK);
