@@ -12,6 +12,7 @@ public:
 	bool moveValid(vector<Piece*>, short, short);
 	bool canMove(vector<Piece*>);
 	bool castlingCase(vector<Piece*>, short, short);
+	bool collision(vector<Piece*>, short, short);
 
 	void setCastling(bool);
 	short getYKing();

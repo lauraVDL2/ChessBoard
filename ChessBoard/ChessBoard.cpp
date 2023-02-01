@@ -46,14 +46,15 @@ int main() {
     setPlayerPieces(player1, (color == 'b') ? BLACK : WHITE);
     setPlayerPieces(player2, (color == 'b') ? WHITE : BLACK);
     party = new Party(board, nullptr);
+    checkmate = 0;
     do {
-        checkmate = board->checkmate();
         cout << "Player 1, this is your turn" << endl;
         party->setPlayer(player1);
         turn(player1);
         cout << "Player 2, this is your turn" << endl;
         party->setPlayer(player2);
         turn(player2);
+        checkmate = board->checkmate();
     } while (checkmate == 0);
     if (checkmate == W_WON) {
         if (player1->getColor() == WHITE) cout << player1->getName() << " won";
