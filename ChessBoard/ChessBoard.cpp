@@ -4,6 +4,7 @@
 #include "Board.h"
 #include "Player.h"
 #include "Piece.h"
+#include<typeinfo>
 
 using namespace std;
 
