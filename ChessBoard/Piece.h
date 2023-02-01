@@ -18,6 +18,8 @@ public:
 	//See if not surrounded
 	virtual bool canMove(vector<Piece *>) = 0;
 
+	void eatPiece(vector<Piece*>, short, short);
+
 	char getColor();
 	short getPositionX();
 	short getPositionY();

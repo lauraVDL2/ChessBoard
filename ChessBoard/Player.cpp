@@ -37,3 +37,7 @@ void Player::setPieces(vector<Piece*> pieces) {
 void Player::pushPiece(Piece* piece) {
 	this->pieces.push_back(piece);
 }
+
+void Player::clearPieces() {
+	this->pieces.clear();
+}

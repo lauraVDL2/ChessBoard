@@ -11,6 +11,15 @@ Piece::Piece(short positionX, short positionY, char color) {
 	this->color = color;
 }
 
+void Piece::eatPiece(vector<Piece*> pieces, short x, short y) {
+	short i;
+	for (i = 0; i < pieces.size(); i++) {
+		if (pieces[i]->positionX == x && pieces[i]->positionY == y && pieces[i]->color != this->color) {
+			pieces.erase(pieces.begin() + i);
+		}
+	}
+}
+
 char Piece::getColor() {
 	return this->color;
 }

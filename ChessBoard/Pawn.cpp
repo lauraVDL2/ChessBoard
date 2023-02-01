@@ -16,11 +16,21 @@ bool Pawn::moveValid(vector<Piece*> pieces, short x, short y) {
 	}
 	//Black player
 	if (this->color == BLACK) {
-		for (i = this->positionX + 1; i < this->positionX + 3; i++) if (i == x && y == this->positionY) return true;
+		for (i = this->positionX + 1; i < this->positionX + 3; i++) {
+			if (i == x && y == this->positionY) {
+				this->eatPiece(pieces, i, y);
+				return true;
+			}
+		}
 	}
 	//White player
 	else if (this->color == WHITE) {
-		for (i = this->positionX - 1; i > this->positionX - 3; i--) if (i == x && y == this->positionY) return true;
+		for (i = this->positionX - 1; i > this->positionX - 3; i--) {
+			if (i == x && y == this->positionY) {
+				this->eatPiece(pieces, i, y);
+				return true;
+			}
+		}
 	}
 	return false;
 }

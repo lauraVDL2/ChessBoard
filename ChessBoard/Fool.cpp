@@ -14,13 +14,33 @@ bool Fool::moveValid(vector<Piece*> pieces, short x, short y) {
 		if (pieces[i]->getPositionX() == x && pieces[i]->getPositionY() == y && pieces[i]->getColor() == this->color) return false;
 	}
 	//Bottom left
-	for (i = this->positionX - 1, j = this->positionY - 1; i >= 0 && j >= 0; i--, j--) if (x == i && y == j) return true;
+	for (i = this->positionX - 1, j = this->positionY - 1; i >= 0 && j >= 0; i--, j--) {
+		if (x == i && y == j) {
+			this->eatPiece(pieces, i, j);
+			return true;
+		}
+	}
 	//Bottom right
-	for (i = this->positionX - 1, j = this->positionY + 1; i >= 0 && j < BOARD_SIZE; i--, j++) if (x == i && y == j) return true;
+	for (i = this->positionX - 1, j = this->positionY + 1; i >= 0 && j < BOARD_SIZE; i--, j++) {
+		if (x == i && y == j) {
+			this->eatPiece(pieces, i, j);
+			return true;
+		}
+	}
 	//Top left
-	for (i = this->positionX + 1, j = this->positionY - 1; i < BOARD_SIZE && j >= 0; i++, j--) if (i == x && j == y) return true;
+	for (i = this->positionX + 1, j = this->positionY - 1; i < BOARD_SIZE && j >= 0; i++, j--) { 
+		if (i == x && j == y) {
+			this->eatPiece(pieces, i, j);
+			return true;
+		}
+	}
 	//Top right
-	for (i = this->positionX + 1, j = this->positionY + 1; i < BOARD_SIZE && j < BOARD_SIZE; i++, j++) if (i == x && j == y) return true;
+	for (i = this->positionX + 1, j = this->positionY + 1; i < BOARD_SIZE && j < BOARD_SIZE; i++, j++) {
+		if (i == x && j == y) {
+			this->eatPiece(pieces, i, j);
+			return true;
+		}
+	}
 	return false;
 }
 

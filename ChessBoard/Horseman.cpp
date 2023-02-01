@@ -16,30 +16,38 @@ bool Horseman::moveValid(vector<Piece*> pieces, short x, short y) {
 	}
 	//Top left
 	if (x == this->positionX + 2 && y == this->positionY - 1) {
+		this->eatPiece(pieces, x, y);
 		return true;
 	}
 	else if (x == this->positionX + 1 && y == this->positionY - 2) {
+		this->eatPiece(pieces, x, y);
 		return true;
 	}
 	//Top right
 	else if (x == this->positionX + 2 && y == this->positionY + 1) {
+		this->eatPiece(pieces, x, y);
 		return true;
 	}
 	else if (x == this->positionX + 1 && y == this->positionY + 2) {
+		this->eatPiece(pieces, x, y);
 		return true;
 	}
 	//Bottom left
 	else if (x == this->positionX - 2 && y == this->positionY - 1) {
+		this->eatPiece(pieces, x, y);
 		return true;
 	}
 	else if (x == this->positionX - 1 && y == this->positionY - 2) {
+		this->eatPiece(pieces, x, y);
 		return true;
 	}
 	//Bottom right
 	else if (x == this->positionX - 2 && y == this->positionY + 1) {
+		this->eatPiece(pieces, x, y);
 		return true;
 	}
 	else if (x == this->positionX - 1 && y == this->positionY + 2) {
+		this->eatPiece(pieces, x, y);
 		return true;
 	}
 	return false;
