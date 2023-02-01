@@ -4,11 +4,13 @@
 #include "Board.h"
 #include "Player.h"
 #include "Piece.h"
+#include "Party.h"
 
 using namespace std;
 
 Board* board;
 Player* player1, * player2;
+Party* party;
 
 void setPlayerPieces(Player *, char);
 void turn(Player*);
@@ -42,10 +44,13 @@ int main() {
     board->initialization();
     setPlayerPieces(player1, (color == 'b') ? BLACK : WHITE);
     setPlayerPieces(player2, (color == 'b') ? WHITE : BLACK);
+    party = new Party(board, nullptr);
     do {
         cout << "Player 1, this is your turn" << endl;
+        party->setPlayer(player1);
         turn(player1);
         cout << "Player 2, this is your turn" << endl;
+        party->setPlayer(player2);
         turn(player2);
     } while (player1->getPieces().size() != 0 && player2->getPieces().size() != 0);
     return 0;
@@ -63,10 +68,11 @@ void setPlayerPieces(Player * player, char color) {
 
 void turn(Player* player) {
     vector<Piece*> pieces;
-    short x, y, i, xMove = 0, yMove = 0, initialX, initialY;
-    bool c;
+    short x, y, i, xMove = 0, yMove = 0, initialX, initialY, yp;
+    bool c, castling;
     c = false;
     pieces = player->getPieces();
+    party->castling();
     do {
         cout << "Enter the coordinate (x) of your piece : ";
         cin >> x;
@@ -99,8 +105,21 @@ void turn(Player* player) {
         else board->setBoardValue(xMove, yMove, 'F');
     }
     else if (typeid(*pieces[i]) == typeid(King)) {
-        if (player->getColor() == WHITE) board->setBoardValue(xMove, yMove, 'r');
-        else board->setBoardValue(xMove, yMove, 'R');
+        yp = ((King*)pieces[i])->getYTower();
+        if (player->getColor() == WHITE) {
+            board->setBoardValue(xMove, yMove, 'r');
+            if (yp > 0) {
+                board->setBoardValue(xMove, yp, 't');
+                board->setBoardValue(7, 7, '.');
+            }
+        }
+        else {
+            board->setBoardValue(xMove, yMove, 'R');
+            if (yp > 0) {
+                board->setBoardValue(xMove, yp, 'T');
+                board->setBoardValue(0, 7, '.');
+            }
+        }
     }
     else if (typeid(*pieces[i]) == typeid(Lady)) {
         if (player->getColor() == WHITE) board->setBoardValue(xMove, yMove, 'e');
@@ -111,8 +130,21 @@ void turn(Player* player) {
         else board->setBoardValue(xMove, yMove, 'P');
     }
     else if (typeid(*pieces[i]) == typeid(Tower)) {
-        if (player->getColor() == WHITE) board->setBoardValue(xMove, yMove, 't');
-        else board->setBoardValue(xMove, yMove, 'T');
+        yp = ((Tower*)pieces[i])->getYKing();
+        if (player->getColor() == WHITE) {
+            board->setBoardValue(xMove, yMove, 't');
+            if (yp > 0) {
+                board->setBoardValue(xMove, yp, 'r');
+                board->setBoardValue(7, 3, '.');
+            }
+        }
+        else {
+            board->setBoardValue(xMove, yMove, 'T');
+            if (yp > 0) {
+                board->setBoardValue(xMove, yp, 'R');
+                board->setBoardValue(0, 3, '.');
+            }
+        }
     }
     pieces[i]->setPositionX(xMove);
     pieces[i]->setPositionY(yMove);
