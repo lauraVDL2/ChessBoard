@@ -35,6 +35,19 @@ bool Pawn::moveValid(vector<Piece*> pieces, short x, short y) {
 	return false;
 }
 
-bool Pawn::canMove(vector<Piece*> piece) {
+bool Pawn::canMove(vector<Piece*> pieces) {
+	short i;
+	for (i = 0; i < pieces.size(); i++) {
+		if (pieces[i]->getColor() == this->color) {
+			if (this->color == BLACK) {
+				if (pieces[i]->getPositionX() == this->positionX + 1 && pieces[i]->getPositionY() == this->positionY) return false;
+				else if (this->positionX == 7) return false;
+			}
+			else {
+				if (pieces[i]->getPositionX() == this->positionX - 1 && pieces[i]->getPositionY() == this->positionY) return false;
+				else if (this->positionX == 0) return false;
+			}
+		}
+	}
 	return true;
 }

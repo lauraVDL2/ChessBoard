@@ -53,6 +53,12 @@ bool Horseman::moveValid(vector<Piece*> pieces, short x, short y) {
 	return false;
 }
 
-bool Horseman::canMove(vector<Piece*> piece) {
-	return true;
+bool Horseman::canMove(vector<Piece*> pieces) {
+	short i, j;
+	for (i = this->positionX - 2; i < this->positionX + 2; i++) {
+		for (j = this->positionY - 2; j < this->positionY + 2; j++) {
+			if (this->moveValid(pieces, i, j)) return true;
+		}
+	}
+	return false;
 }
