@@ -32,7 +32,13 @@ bool King::moveValid(vector<Piece*> pieces, short x, short y) {
 }
 
 bool King::canMove(vector<Piece*> pieces) {
-	return true;
+	short i, j;
+	for (i = this->positionX - 1; i <= this->positionX + 1; i++) {
+		for (j = this->positionY - 1; j <= this->positionY + 1; j++) {
+			if (this->moveValid(pieces, i, j)) return true;
+		}
+	}
+	return false;
 }
 
 bool King::failure(vector<Piece*> pieces, short x, short y) {

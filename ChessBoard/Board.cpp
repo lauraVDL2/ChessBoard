@@ -106,14 +106,9 @@ bool Board::checkKing(King* king, short k) {
 	xMin = max(x - 1, 0);
 	yMax = min(y + 1, BOARD_SIZE);
 	yMin = max(y - 1, 0);
-	//cout << "xMin = " << xMin << " xMax = " << xMax << " yMin = " << yMin << " yMax = " << yMax << endl;
 	for (i = xMin; i < xMax; i++) {
 		for (j = yMin; j < yMax; j++) {
-			if (!this->pieces[k]->moveValid(this->pieces, i, j)) {
-				//cout << "ok 2";
-				fail = false;
-			}
-			//else cout << "OK 1" << endl;
+			if (!this->pieces[k]->moveValid(this->pieces, i, j)) fail = false;
 		}
 	}
 	return fail;

@@ -8,6 +8,6 @@ public:
 
 	bool moveValid(vector<Piece*>, short, short);
 	bool canMove(vector<Piece*>);
-	bool collision(vector<Piece*>, short, short);
+	bool collision(vector<Piece*>, short, short, short, short);
 };
 

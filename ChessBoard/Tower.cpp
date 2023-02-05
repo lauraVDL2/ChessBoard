@@ -12,50 +12,57 @@ Tower::Tower(short x, short y, char color) : Piece(x, y, color) {
 
 bool Tower::moveValid(vector<Piece*> pieces, short x, short y) {
 	short i, j;
-	bool castling;
+	bool castling, result = false;
 	castling = this->castling;
 	//Check if there's not a piece of our own color where we want to move
 	for (i = 0; i < pieces.size(); i++) {
 		if (pieces[i]->getPositionX() == x && pieces[i]->getPositionY() == y && pieces[i]->getColor() == this->color) return false;
 	}
 	if (castling) return this->castlingCase(pieces, x, y);
-	//Left
+	//Top
 	for (i = 0; i < this->positionX; i++) {
 		if (i == x && y == this->positionY) {
-			if (this->collision(pieces, i + 1, y)) return false;
+			if (this->collision(pieces, x, this->positionY, this->positionX, this->positionY)) return false;
 			this->eatPiece(pieces, i, y);
-			return true;
-		}
-	}
-	//Right
-	for (i = this->positionX + 1; i < BOARD_SIZE; i++) {
-		if (i == x && y == this->positionY) {
-			if (this->collision(pieces, i - 1, y)) return false;
-			this->eatPiece(pieces, i, y);
-			return true;
+			result = true;
 		}
 	}
 	//Bottom
+	for (i = this->positionX + 1; i < BOARD_SIZE; i++) {
+		if (i == x && y == this->positionY) {
+			if (this->collision(pieces, this->positionX + 1, this->positionY, x, this->positionY)) return false;
+			this->eatPiece(pieces, i, y);
+			result = true;
+		}
+	}
+	//Left
 	for (j = 0; j < this->positionY; j++) {
 		if (x == this->positionX && j == y) {
-			if (this->collision(pieces, x, j + 1)) return false;
+			if (this->collision(pieces, this->positionX, y, this->positionX, this->positionY)) return false;
 			this->eatPiece(pieces, x, j);
-			return true;
+			result = true;
 		}
 	}
-	//Top
+	//Right
 	for (j = this->positionY + 1; j < BOARD_SIZE; j++) {
 		if (x == this->positionX && j == y) {
-			if (this->collision(pieces, x, j - 1)) return false;
+			if (this->collision(pieces, this->positionX, this->positionY + 1, this->positionX, y)) return false;
 			this->eatPiece(pieces, x, j);
-			return true;
+			result = true;
 		}
 	}
-	return false;
+	return result;
 }
 
 bool Tower::canMove(vector<Piece*> pieces) {
-	return true;
+	short i;
+	for (i = 0; i < BOARD_SIZE; i++) {
+		if (this->moveValid(pieces, i, this->positionY)) return true;
+	}
+	for (i = 0; i < BOARD_SIZE; i++) {
+		if (this->moveValid(pieces, this->positionX, i)) return true;
+	}
+	return false;
 }
 
 void Tower::setCastling(bool castling) {
@@ -98,10 +105,22 @@ bool Tower::castlingCase(vector<Piece*> pieces, short x, short y) {
 }
 
 //Check if there not another piece between you and the destination
-bool Tower::collision(vector<Piece*> pieces, short x, short y) {
+bool Tower::collision(vector<Piece*> pieces, short minX, short minY, short maxX, short maxY) {
 	short i, j;
 	for (i = 0; i < pieces.size(); i++) {
-		if (pieces[i]->getPositionX() == x && pieces[i]->getPositionY() == y) return true;
+		if (minX == maxX && minY == maxY) {
+			if (pieces[i]->getPositionX() == minX && pieces[i]->getPositionY() == minY) return true;
+		}
+		else if (minX == maxX) {
+			for (j = minY; j < maxY; j++) {
+				if (pieces[i]->getPositionX() == minX && pieces[i]->getPositionY() == j) return true;
+			}
+		}
+		else if (minY == maxY) {
+			for (j = minX; j < maxX; j++) {
+				if (pieces[i]->getPositionX() == j && pieces[i]->getPositionY() == minY) return true;
+			}
+		}
 	}
 	return false;
 }
